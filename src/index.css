@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    min-height: 100%;
+  }
+
+  body {
+    @apply bg-cream-100 text-ink-700 antialiased dark:bg-night-950 dark:text-cream-100;
+    font-family: system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+      'Microsoft YaHei', sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    /* 移动端下拉时不要整页回弹 */
+    overscroll-behavior-y: none;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+    color: inherit;
+  }
+
+  ::selection {
+    @apply bg-sage-200 text-ink-900;
+  }
+}
+
+@layer components {
+  /* 桌面端居中，最大 560px，不会横向铺开 */
+  .app-shell {
+    @apply relative mx-auto flex min-h-[100dvh] w-full max-w-[560px] flex-col bg-cream-100 dark:bg-night-950;
+  }
+
+  .card {
+    @apply rounded-3xl bg-white p-4 shadow-soft ring-1 ring-cream-200/70 dark:bg-night-800 dark:ring-night-700;
+  }
+
+  .card-flat {
+    @apply rounded-2xl bg-cream-50 p-3 ring-1 ring-cream-200/60 dark:bg-night-700/60 dark:ring-night-700;
+  }
+
+  /* 最小点击区域 44px，按下去有轻微缩放 */
+  .btn {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-2xl px-4 text-[15px] font-medium transition duration-150 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-50 disabled:active:scale-100;
+  }
+
+  .btn-primary {
+    @apply bg-sage-400 text-white shadow-softer hover:bg-sage-500;
+  }
+
+  .btn-soft {
+    @apply bg-sage-100 text-sage-700 hover:bg-sage-200 dark:bg-night-700 dark:text-sage-200 dark:hover:bg-night-600;
+  }
+
+  .btn-ghost {
+    @apply bg-cream-200/80 text-ink-700 hover:bg-cream-200 dark:bg-night-700 dark:text-cream-100 dark:hover:bg-night-600;
+  }
+
+  .icon-btn {
+    @apply inline-flex h-[44px] w-[44px] shrink-0 items-center justify-center rounded-full transition duration-150 active:scale-90;
+  }
+
+  .chip {
+    @apply inline-flex min-h-[36px] items-center rounded-full bg-cream-200/80 px-3 text-[13px] text-ink-700 transition duration-150 active:scale-95 dark:bg-night-700 dark:text-cream-100;
+  }
+
+  .section-title {
+    @apply text-[13px] font-semibold tracking-wide text-ink-500 dark:text-cream-300;
+  }
+
+  .phonetic {
+    @apply font-mono text-[13px] leading-none text-ink-500 dark:text-cream-300;
+  }
+
+  .input {
+    @apply min-h-[52px] w-full rounded-2xl bg-white px-4 text-[17px] text-ink-900 shadow-softer ring-1 ring-cream-200 outline-none transition placeholder:text-ink-300 focus:ring-2 focus:ring-sage-300 dark:bg-night-800 dark:text-cream-50 dark:ring-night-700 dark:focus:ring-sage-500;
+  }
+
+  /* iOS 底部安全区 */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  /* 数字等宽，统计数字跳动时不会左右晃 */
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+}

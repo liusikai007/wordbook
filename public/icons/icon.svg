@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="词簿">
+  <rect width="512" height="512" rx="116" fill="#8FAE9B" />
+  <path
+    d="M256 158c-30-22-72-33-116-33-13 0-25 2-35 5v236c10-3 22-5 35-5 44 0 86 11 116 33 30-22 72-33 116-33 13 0 25 2 35 5V130c-10-3-22-5-35-5-44 0-86 11-116 33z"
+    fill="#FAF7F2"
+  />
+  <path d="M256 158v236" stroke="#8FAE9B" stroke-width="12" stroke-linecap="round" />
+  <path d="M180 210h46M180 262h46M286 210h46M286 262h46" stroke="#B4CDBD" stroke-width="14" stroke-linecap="round" />
+</svg>

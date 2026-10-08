@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>词簿 · 英语背单词</title>
+    <meta
+      name="description"
+      content="本地优先的英语背单词应用：查词、间隔重复复习、拼写测试，数据只存在你自己的浏览器里，不需要登录。"
+    />
+    <meta name="theme-color" content="#FAF7F2" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1D2220" media="(prefers-color-scheme: dark)" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" type="image/svg+xml" href="./icons/icon.svg" />
+    <link rel="apple-touch-icon" href="./icons/icon-192.png" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="词簿" />
+    <script>
+      // 首屏渲染前就套用主题，避免暗色模式闪一下白屏
+      (function () {
+        try {
+          var saved = localStorage.getItem('wordbook:theme')
+          var dark = saved ? saved === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches
+          if (dark) document.documentElement.classList.add('dark')
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>这个应用需要开启 JavaScript 才能使用。</noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
