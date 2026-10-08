@@ -3,6 +3,8 @@
 移动端优先的单页应用（React 18 + Vite 5 + TypeScript + Tailwind CSS 3）。
 数据全部保存在浏览器本地（localStorage），不需要登录，不需要任何付费 key。
 
+线上地址：https://liusikai007.github.io/wordbook/ （推到 main 分支后由 GitHub Actions 自动构建发布）
+
 ---
 
 ## 功能一览
