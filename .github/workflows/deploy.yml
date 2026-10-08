@@ -23,6 +23,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
+      # 首次运行时自动为仓库开启 Pages（Build source = GitHub Actions），
+      # 这样不需要手动去 Settings -> Pages 里点选
+      - uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - run: npm ci
       - run: npm run build
       - uses: actions/upload-pages-artifact@v3
