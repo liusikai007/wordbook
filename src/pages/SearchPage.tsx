@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default function SearchPage({ onGoReview }: Props) {
-  const { status, entry, error, lookup, reset } = useDictionary()
+  const { status, entry, error, errorKind, lookup, reset } = useDictionary()
   const { words, stats, addWord, rateWord, getWord, toggleMastered, removeWord } = useWordbook()
   const { show } = useToast()
   const [lastQuery, setLastQuery] = useState('')
@@ -104,8 +104,10 @@ export default function SearchPage({ onGoReview }: Props) {
       {status === 'error' && error ? (
         <div className="card animate-fade-up bg-apricot-100 dark:bg-night-800">
           <p className="text-[15px] font-medium text-ink-900 dark:text-cream-50">{error}</p>
-          <p className="mt-1 text-[13px] text-ink-500 dark:text-cream-300">
-            网络正常的话，换个拼写再试一次也可以。
+          <p className="mt-1 text-[13px] leading-relaxed text-ink-500 dark:text-cream-300">
+            {errorKind === 'network'
+              ? '如果一直失败：先关掉广告拦截类插件试试，或者换个网络。'
+              : '换个拼写试试，也可以用单词原形（比如 running 换成 run）。'}
           </p>
           <button type="button" className="btn btn-soft mt-3 w-full" onClick={() => search(lastQuery)}>
             重试

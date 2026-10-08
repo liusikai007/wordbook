@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react'
-import { LookupError, lookupWord } from '../services/dictionary'
+import { LookupError, lookupWord, type LookupErrorKind } from '../services/dictionary'
 import type { WordEntry } from '../types'
 
 export type LookupStatus = 'idle' | 'loading' | 'success' | 'error'
@@ -12,6 +12,7 @@ export function useDictionary() {
   const [status, setStatus] = useState<LookupStatus>('idle')
   const [entry, setEntry] = useState<WordEntry | null>(null)
   const [error, setError] = useState<string | null>(null)
+  const [errorKind, setErrorKind] = useState<LookupErrorKind | null>(null)
   const [word, setWord] = useState('')
   const requestId = useRef(0)
 
@@ -23,6 +24,7 @@ export function useDictionary() {
     setWord(text)
     setStatus('loading')
     setError(null)
+    setErrorKind(null)
 
     try {
       const result = await lookupWord(text)
@@ -35,6 +37,7 @@ export function useDictionary() {
       const message =
         err instanceof LookupError ? err.message : '查询失败了，检查一下网络再试试'
       setError(message)
+      setErrorKind(err instanceof LookupError ? err.kind : 'network')
       setStatus('error')
       return null
     }
@@ -45,8 +48,9 @@ export function useDictionary() {
     setStatus('idle')
     setEntry(null)
     setError(null)
+    setErrorKind(null)
     setWord('')
   }, [])
 
-  return { status, entry, error, word, lookup, reset }
+  return { status, entry, error, errorKind, word, lookup, reset }
 }

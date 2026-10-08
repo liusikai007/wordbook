@@ -106,18 +106,32 @@ export async function translateToChinese(text: string, signal?: AbortSignal): Pr
   }
 }
 
-/** 批量翻译：串行执行，既省配额也不会把对方服务器打爆 */
+/**
+ * 批量翻译：最多 3 个并发。
+ * 串行执行时一个新词要等 2~4 秒（每个请求 0.4~1s），并发后一般 1 秒内就能出结果；
+ * 3 是折中值，既快又不会触发 MyMemory 的限流。
+ */
 export async function translateBatch(
   texts: string[],
   signal?: AbortSignal
 ): Promise<(string | null)[]> {
-  const out: (string | null)[] = []
-  for (const text of texts) {
-    if (signal?.aborted) {
-      out.push(null)
-      continue
-    }
-    out.push(await translateToChinese(text, signal))
+  const out: (string | null)[] = new Array(texts.length).fill(null)
+  const queue = texts.map((text, index) => ({ text, index }))
+  const workers: Promise<void>[] = []
+  const workerCount = Math.min(3, queue.length)
+
+  for (let i = 0; i < workerCount; i += 1) {
+    workers.push(
+      (async () => {
+        for (;;) {
+          const item = queue.shift()
+          if (!item || signal?.aborted) return
+          out[item.index] = await translateToChinese(item.text, signal)
+        }
+      })()
+    )
   }
+
+  await Promise.all(workers)
   return out
 }

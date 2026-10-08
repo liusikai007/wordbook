@@ -17,7 +17,8 @@ const POS_LABEL: Record<string, string> = {
   numeral: 'num.',
   exclamation: 'excl.',
   article: 'art.',
-  auxiliary: 'aux.'
+  auxiliary: 'aux.',
+  other: '其他'
 }
 
 function posLabel(pos: string): string {
@@ -98,6 +99,11 @@ export default function WordCard({ entry, bare, onPickWord }: Props) {
           {entry.source === 'cache' ? (
             <span className="rounded-full bg-cream-200/80 px-2 py-0.5 text-[10px] text-ink-300 dark:bg-night-700 dark:text-cream-300">
               本地缓存
+            </span>
+          ) : null}
+          {entry.provider === 'datamuse' ? (
+            <span className="rounded-full bg-apricot-100 px-2 py-0.5 text-[10px] text-ink-500 dark:bg-night-700 dark:text-apricot-200">
+              备用词源 · 暂无例句
             </span>
           ) : null}
         </div>

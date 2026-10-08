@@ -47,6 +47,8 @@ export interface WordEntry {
   examples: Example[]
   /** api = 刚走网络拿到，cache = 本地缓存命中 */
   source: 'api' | 'cache'
+  /** 数据来自哪个词典源：dictionaryapi = 主源（有例句），datamuse = 备用源（无例句） */
+  provider?: 'dictionaryapi' | 'datamuse'
   fetchedAt: number
 }
 
